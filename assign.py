@@ -10,11 +10,17 @@ db = SQLAlchemy(app)
 migrate = Migrate(app,db)
 
 
+
+#connecting to a database with Flask-SQLAlchemy
+
 app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY') or '923892yr3eohnouyewfune'
 
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL') or 'sqlite:///app.db'
 
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
+
+#sending user details
 
 class Register(db.Model):
     __tablename__ = 'register'
@@ -63,6 +69,8 @@ def index():
         else:
             print(pin, s_n)
             break
+    
+    #adding serial number and pin to database
 
     table = Register(s_n=int(s_n), pin=str(pin))
     db.session.add(table)
